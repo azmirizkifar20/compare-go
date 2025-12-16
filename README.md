@@ -17,6 +17,7 @@ Endpoints:
 - POST `http://localhost:31143/api/v1/auth/load-test`
 - GET  `http://localhost:31143/health`
 - GET  `http://localhost:31143/metrics`
+- GET  `http://localhost:31143/api/v1/data/all` *(reads users/products/transactions/transaction_items)*
 
 ## Run TS service
 ```bash
@@ -29,6 +30,7 @@ Endpoints:
 - POST `http://localhost:3000/v1/auth/load-test`
 - GET  `http://localhost:3000/health`
 - GET  `http://localhost:3000/metrics`
+- GET  `http://localhost:3000/api/v1/data/all` *(reads users/products/transactions/transaction_items)*
 
 ## Run k6 (single script)
 ```bash

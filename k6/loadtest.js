@@ -10,8 +10,10 @@ const apiErr = new Counter("api_errors");
 
 // Env vars (defaults match included services)
 const TARGET = __ENV.TARGET || "go"; // go | ts | custom
-const GO_BASE = __ENV.GO_BASE || "http://localhost:31143";
-const TS_BASE = __ENV.TS_BASE || "http://localhost:3000";
+// const GO_BASE = __ENV.GO_BASE || "http://localhost:31143";
+const GO_BASE = __ENV.GO_BASE || "https://gosample.azmirf.my.id";
+const TS_BASE = __ENV.TS_BASE || "https://tssample.azmirf.my.id";
+// const TS_BASE = __ENV.TS_BASE || "http://localhost:3000";
 const PATH =
   __ENV.PATH ||
   (TARGET === "go" ? "/api/v1/auth/load-test" : "/v1/auth/load-test");

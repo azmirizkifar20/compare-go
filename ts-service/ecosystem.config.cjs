@@ -6,11 +6,6 @@ module.exports = {
       args: 'run start',
       cwd: '/var/www/html/compare-go-ts/ts-service',
 
-      env: {
-        PORT: 3305,
-        NODE_ENV: 'production',
-      },
-
       exec_mode: 'fork',
       instances: 1,
       autorestart: true,
