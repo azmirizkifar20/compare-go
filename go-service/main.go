@@ -353,6 +353,28 @@ func fetchTransactionItems(ctx context.Context) ([]TransactionItem, error) {
 	return items, rows.Err()
 }
 
+type loggingResponseWriter struct {
+	http.ResponseWriter
+	status int
+}
+
+func (lrw *loggingResponseWriter) WriteHeader(code int) {
+	lrw.status = code
+	lrw.ResponseWriter.WriteHeader(code)
+}
+
+func logMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		lrw := &loggingResponseWriter{ResponseWriter: w, status: http.StatusOK}
+
+		next.ServeHTTP(lrw, r)
+
+		duration := time.Since(start)
+		log.Printf("%s %s -> %d in %s", r.Method, r.URL.Path, lrw.status, duration)
+	})
+}
+
 func main() {
 	loadEnv()
 
@@ -385,7 +407,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:         addr,
-		Handler:      mux,
+		Handler:      logMiddleware(mux),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  60 * time.Second,

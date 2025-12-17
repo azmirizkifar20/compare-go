@@ -59,13 +59,13 @@ export default function () {
   const url = `${BASE_URL}${PATH}`;
   const payload = makePayload();
 
-  const res = http.post(url, payload, {
+  const res = http.get(url, payload, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     timeout: __ENV.TIMEOUT || "30s",
-    tags: { name: `POST ${PATH}`, target: TARGET },
+    tags: { name: `GET ${PATH}`, target: TARGET },
   });
 
   apiDuration.add(res.timings.duration);
