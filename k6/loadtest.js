@@ -14,9 +14,10 @@ const TARGET = __ENV.TARGET || "go"; // go | ts | custom
 const GO_BASE = __ENV.GO_BASE || "https://gosample.azmirf.my.id";
 const TS_BASE = __ENV.TS_BASE || "https://tssample.azmirf.my.id";
 // const TS_BASE = __ENV.TS_BASE || "http://localhost:3000";
-const PATH =
-  __ENV.PATH ||
-  (TARGET === "go" ? "/api/v1/auth/load-test" : "/v1/auth/load-test");
+// const PATH =
+//   __ENV.PATH ||
+//   (TARGET === "go" ? "/api/v1/data/all" : "/api/v1/data/all");
+const PATH = "/api/v1/data/all"
 
 const BASE_URL =
   TARGET === "go"
