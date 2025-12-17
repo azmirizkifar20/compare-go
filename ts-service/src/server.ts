@@ -369,6 +369,20 @@ function compute(items: number[], iterations: number, multiplier: number): bigin
 
 const app = Fastify({ logger: false });
 
+app.addHook("onRequest", (req, _reply, done) => {
+  (req as any).__start = process.hrtime.bigint();
+  done();
+});
+
+app.addHook("onResponse", (req, reply, done) => {
+  const start = (req as any).__start as bigint | undefined;
+  const durationMs =
+    start !== undefined ? Number(process.hrtime.bigint() - start) / 1_000_000 : undefined;
+  const msg = `${req.method} ${req.url} -> ${reply.statusCode}` + (durationMs ? ` in ${durationMs.toFixed(2)}ms` : "");
+  console.log(msg);
+  done();
+});
+
 app.get("/health", async () => {
   return {
     ok: true,
